@@ -1,0 +1,22 @@
+~version: "2.0"
+
+$main: //div[@class="entry themeform"]
+@debug
+title: $main//h1[@class="post-title"]
+$time: //time
+@datetime("mmm dd, yyyy"): $time
+published_date: $@
+author: //a[@rel="author"]
+cover: /html/body/div[1]/div/div/div/div/div[1]/div[2]/article/div[4]/div[1]/p[1]/a
+cover: //img[@file="*.jpg*"]
+#@remove: $main//img
+@remove: $main//p[@class="post-byline"]
+@remove: //div[@class="post-category"]
+?exists: //cite
+@prepend("Quelle: "): //cite
+# Convert all iframe elements to inline elemtent
+#@inline: $body//iframe[starts-with(@src, "/media/")]
+
+body: $main
+@debug
+@replace_tag(<div>): //p[img]
